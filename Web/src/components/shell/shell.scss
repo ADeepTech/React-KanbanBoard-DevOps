@@ -1,0 +1,142 @@
+// Copyright (c) Automatic Controls and Instrumentation Pte Ltd. All rights reserved.
+@import 'src/styles/themes';
+@import 'src/styles/mixins';
+//@import "~@microsoft/azure-iot-ux-fluent-css/src/mixins";
+
+.shell-container { height: 100%; }
+
+.shell-container {
+    .ant-menu.ant-menu-root {
+      min-height: calc(100vh - 50px);
+        @include themify($themes) {
+            color: themed('colorNavText');
+            background-color: themed('colorNavBg');
+        }
+    }
+}
+.shell {
+  height: 100%;
+  display: flex;
+
+  ::-webkit-scrollbar { width: 12px; }
+
+  // Apply theme properties
+  @include themify($themes) {
+    color: themed('colorContentText');
+    background-color: themed('colorContentBackground');
+
+    // Style text highlights
+    // Set RGBa opacity to .99 to get correct color in the selection styling
+    ::selection {
+      color: themed('colorSelectionText');
+      background: rgba(themed('colorSelectionBg'), .99);
+    }
+
+    ::-moz-selection {
+      color: themed('colorSelectionText');
+      background: rgba(themed('colorSelectionBg'), .99);
+    }
+
+    // Style all scroll bars in the app
+    ::-webkit-scrollbar-track { background-color: themed('colorScrollBarBackground'); }
+
+    ::-webkit-scrollbar-corner { background-color: themed('colorScrollBarBackground'); }
+
+    ::-webkit-scrollbar { background-color: themed('colorScrollBarBackground'); }
+
+    ::-webkit-scrollbar-thumb { background-color: themed('colorScrollBarButton'); }
+  }
+
+  .ant-input[disabled] {
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .ant-card {
+    border-radius: 0px;
+    .ant-card-head {
+      border-radius: 0px;
+      .ant-card-head-title {
+          font-size: 16px;
+      }
+    }
+    .ant-card-head, .ant-card-body {
+      @include themify($themes) {
+        background-color: themed('colorDashboardPanelHeaderBg');
+        color: themed('colorDashboardPanelText');
+      }
+    }
+  }
+
+  .ant-card .AC-Card-Command {
+    font-size: 16px;
+    .ms-CommandBar {
+      //padding: 0px 0px 0px 24px;
+      @include themify($themes) {
+        background-color: themed('colorCommandBarHeaderBg');
+        color: themed('colorDashboardPanelText');
+      }
+      .ac-CommandBarTitle {
+        display: flex;
+        height: 100%;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+      }
+      .ms-CommandBar-primaryCommand {
+        .ms-Button.ms-Button--commandBar {
+          cursor: auto;
+          .ms-Button-label {
+            font-size: 16px;
+            //font-weight: 700;
+          }
+        }
+        .ms-Button.ms-Button--commandBar:hover {
+          background-color: inherit;
+          color: inherit;
+        }
+      }
+      .ms-Button.ms-Button--commandBar {
+        @include themify($themes) {
+          background-color: themed('colorCommandBarHeaderBg');
+          color: themed('colorDashboardPanelText');
+        }
+        .ms-Button-icon, .ms-Button-textContainer, .ms-Button-menuIcon {
+          background-color: inherit;
+          color: inherit;
+        }
+        .ms-Button-menuIcon:hover {
+          background-color: transparent;
+          @include themify($themes) {
+              color: themed('colorDashboardPanelText');
+          }
+        }
+      }
+    }
+  }
+
+  .ant-layout-footer {
+    @include themify($themes) {
+        color: themed('colorContentText');
+        background-color: themed('colorContentBackground');
+    }
+  }
+}
+
+.ant-layout-sider {
+  .ant-layout-sider-children {
+    .ant-menu-submenu-title, .ant-menu-item {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+}
+
+.access-denied {
+  height: 100%;
+  font-family: $fontSelawikLight;
+  font-style: italic;
+  text-align: center;
+  @include rem-font-size(20px);
+  @include rem-fallback(padding, 100px);
+}

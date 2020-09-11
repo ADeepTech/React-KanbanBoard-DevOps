@@ -1,0 +1,175 @@
+// Copyright (c) Automatic Controls and Instrumentation Pte Ltd. All rights reserved.
+
+.NavBar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  color: white;
+  background-color: #005a9e;//#0078d7;//#141127;
+  justify-content: space-between;
+
+  .ms-Dropdown:hover, .ms-Dropdown-title.ms-Dropdown-titleIsPlaceHolder:hover {
+    color: #FFF !important;
+    background: #0078d7;
+  }
+  .ms-Dropdown:focus, .ms-Dropdown:active, .ms-Dropdown-title.ms-Dropdown-titleIsPlaceHolder:focus, .ms-Dropdown-title.ms-Dropdown-titleIsPlaceHolder:active {
+    color: #FFF !important;
+  } 
+}
+
+.NavBar .searchbox {
+  width: 20em;
+}
+
+.NavBar .searchbox .ms-SearchBox {
+  margin-bottom: 0;
+  background-color: white;
+}
+
+.ms-Dropdown-header {
+  height: auto;
+  line-height: normal;
+}
+.AC-CalloutSettings {
+  width: 320px;
+  height: calc(100vh - 50px);
+  top: 50px !important;
+  left: auto !important;
+  right: 0px !important;
+  .ms-Callout-main {
+    height: 100%;
+    .AC-CalloutSettings-header {
+      .AC-CalloutSettings-headerTitle {
+        margin: 16px;
+      }
+    }
+    .AC-CalloutSettings-inner {
+      padding: 16px;
+    }
+  }
+}
+.CalloutSettings {
+  right: 0px !important;
+  .ms-Callout-main {
+    height: 100%;
+    .ms-Dropdown-header {
+      padding: 0px 16px;
+    }
+  }
+}
+.CalloutSignOut {
+  right: 0px !important;
+  margin-right: 0px;
+  .ms-Callout-main {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,.16);
+    .ms-Dropdown-header {
+      .ms-Persona-details {
+        line-height: normal;
+      }
+    }
+    .ms-Button.ms-Button--default {
+      width: 100%;
+      background-color: rgba(0,0,0,.04);
+      border: none
+    }
+    .ms-Button.ms-Button--action.ms-Button--command.ms-Dropdown-item {
+      background-color: rgba(0,0,0,.04);
+      text-align: center;
+    }
+    .ms-Button.ms-Button--action.ms-Button--command.ms-Dropdown-item:hover {
+      background-color: rgba(0,0,0,.08);
+    }
+    /*
+    .ms-Button.ms-Button--default:parent {
+      margin: 0px;
+    }*/
+    .ms-IconExample {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      margin: 0 10px;
+    }
+  }
+}
+
+.Header {
+  height:50px;
+  line-height:50px;
+  padding:0 20px;
+  background:#005a9e;
+  overflow:hidden;
+  white-space:no-wrap;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
+@media (max-width:1023px) {
+  .Header {
+    padding:0
+  }
+}
+.Header-button,
+.Header-buttons,
+.Header-title {
+  display:inline-block;
+  vertical-align:top
+}
+.Header-title {
+  line-height:48px;
+}
+html .Header-title .ms-Icon {
+  padding-right:8px;
+}
+html .Header-buttons {
+  float:right;
+}
+.Header-button {
+  position:relative;
+  text-decoration:none;
+  background:0 0;
+  color:#fff;
+  border:none;
+  padding:0;
+  padding:0 10px;
+  min-width:50px;
+  height:50px;
+  line-height:50px;
+  margin:0 5px;
+  text-transform:uppercase;
+  display:inline-block;
+  vertical-align:top;
+  box-sizing:border-box
+}
+.ms-Fabric .Header-button::-moz-focus-inner {
+  border:0
+}
+.ms-Fabric .Header-button {
+  outline:transparent;
+  position:relative
+}
+.ms-Fabric.is-focusVisible .Header-button:focus:before {
+content:'';
+  position:absolute;
+  top:2px;
+  right:2px;
+  bottom:2px;
+  left:2px;
+  pointer-events:none;
+  border:1px solid #c7e0f4
+}
+.Header-button .ms-Icon {
+  font-size:18px
+}
+.Header-button:hover {
+  background:#0078d7
+}
+@media (max-width:1023px) {
+  .Header-button {
+    margin:0
+  }
+  .Header-button:hover {
+    background:inherit
+  }
+}
