@@ -6,11 +6,9 @@
 */
 import { combineReducers } from 'redux';
 import { appReducer } from './appReducer';
-import { wagoReducer } from './wagoReducer';
 
 const rootReducer = combineReducers({
-    appReducer,
-    wagoReducer
+    appReducer
 })
 
 export default rootReducer;
