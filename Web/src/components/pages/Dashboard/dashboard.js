@@ -5,8 +5,10 @@
  * @author AndyNgKM
 */
 import React, { Component } from 'react';
-import { Button, Card, Form, Input, Modal, Col, Row } from 'antd';
+import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { BoardPanel } from "./panels";
 
 import './dashboard.scss';
 
@@ -81,6 +83,18 @@ const formItemLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 20 },
 };
+
+function handleMenuClick(e) {
+  console.log('click', e);
+}
+
+const menu = (
+  <Menu onClick={handleMenuClick}>
+    <Menu.Item key="1">Edit Board</Menu.Item>
+    <Menu.Item key="2">Delete Board</Menu.Item>
+    <Menu.Item key="3">3rd item</Menu.Item>
+  </Menu>
+);
 
 export default class Dashboard extends Component {
 
@@ -204,135 +218,32 @@ export default class Dashboard extends Component {
   render() {
     const isMobile = this.props.isMobile;
     const displayAddCard = this.displayAddCard;
-    const option = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-      }]
-    };
     return (
       <div id="Dashboard" style={{ height: '100%', paddingTop: '16px', paddingLeft: '16px' }}>
         <section id="AC-Inner-Content" className="AC-Inner-Content">
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Row>
-              <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
-                <Card title="To Do" extra={<a href="#">More</a>} style={{ width: "100%" }} headStyle={{ backgroundColor: '#40a9ff' }} bodyStyle={{ padding: '0px' }}>
-                  <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
-                    <Button onClick={() => displayAddCard("droppable")} style={{ width: '100%' }}>Add Card</Button>
-                  </div>
-                  <Droppable droppableId="droppable">
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}>
-                        {this.state.items.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}>
-                                <Card title={item.title}>
-                                  {item.content}
-                                </Card>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                </Card>
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ paddingRight: (isMobile === true) ? '0px' : '16px' }}>
-                <Card title="Doing" extra={<a href="#">More</a>} style={{ width: "100%" }} headStyle={{ backgroundColor: '#9254de' }} bodyStyle={{ padding: '0px' }}>
-                  <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
-                    <Button onClick={() => displayAddCard("droppable2")} style={{ width: '100%' }}>Add Card</Button>
-                  </div>
-                  <Droppable droppableId="droppable2">
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}>
-                        {this.state.selected.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}>
-                                <Card title={item.title}>
-                                  {item.content}
-                                </Card>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                </Card>
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ paddingRight: (isMobile === true) ? '0px' : '16px' }}>
-                <Card title="Done" extra={<a href="#">More</a>} style={{ width: "100%" }} headStyle={{ backgroundColor: '#73d13d' }} bodyStyle={{ padding: '0px' }}>
-                  <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
-                    <Button onClick={() => displayAddCard("droppable3")} style={{ width: '100%' }}>Add Card</Button>
-                  </div>
-                  <Droppable droppableId="droppable3">
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}>
-                        {this.state.selectedDone.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}>
-                                <Card title={item.title}>
-                                  {item.content}
-                                </Card>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                </Card>
-              </Col>
+              <BoardPanel
+                title="To Do"
+                color='#40a9ff'
+                droppableId="droppable"
+                items={this.state.items}
+                displayAddCard={displayAddCard}
+              />
+              <BoardPanel
+                title="Doing"
+                color='#9254de'
+                droppableId="droppable2"
+                items={this.state.selected}
+                displayAddCard={displayAddCard}
+              />
+              <BoardPanel
+                title="Done"
+                color='#73d13d'
+                droppableId="droppable3"
+                items={this.state.selected}
+                displayAddCard={displayAddCard}
+              />
             </Row>
           </DragDropContext>
         </section>
