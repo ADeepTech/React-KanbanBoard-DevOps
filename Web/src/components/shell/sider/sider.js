@@ -70,9 +70,15 @@ export default class SiderLayout extends Component {
                 //inlineCollapsed={this.props.collapsed}
                 >
                     <Menu.Item key="Home">
-                        <Link to={`${baseUrl}/`}>
+                        <Link to={`${baseUrl}/home`}>
                             {/*<OfficeIcon className="anticon" iconName="Home" />*/}
                             <span>Home</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Dashboard">
+                        <Link to={`${baseUrl}/dashboard`}>
+                            {/*<OfficeIcon className="anticon" iconName="Home" />*/}
+                            <span>Dashboard</span>
                         </Link>
                     </Menu.Item>
                 </Menu>
