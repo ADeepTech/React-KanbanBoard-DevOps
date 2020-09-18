@@ -6,23 +6,20 @@
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import App from './App';
-import rootReducer from './store/reducers/rootReducer';
-import * as serviceWorker from './serviceWorker';
+import configureStore from './store/createStore';
 import './index.scss';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-// use applyMiddleware to add the thunk middleware to the store
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </React.StrictMode>
-  </Provider>,
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

@@ -7,9 +7,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Shell from './components/shell/shell';
-//import LoginContainer from './components/pages/Login/Login.container';
+import HomeContainer from './components/pages/Home/home.container';
 import DashboardContainer from './components/pages/Dashboard/dashboard.container';
-import logo from './logo.svg';
 import './App.less';
 
 const rolesAll = [1,2,3];
@@ -20,6 +19,12 @@ const pagesConfig = [
     to: '/',
     exact: true,
     Component: DashboardContainer,
+    Roles: rolesAll
+  },
+  {
+    to: '/home',
+    exact: true,
+    Component: HomeContainer,
     Roles: rolesAll
   },
   {
