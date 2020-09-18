@@ -101,9 +101,9 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: getToDoItems(10),
-      selected: getDoingItems(5, 10),
-      selectedDone: getDoneItems(5, 10),
+      items: getToDoItems(3),
+      selected: getDoingItems(3),
+      selectedDone: getDoneItems(3),
       displayAddCard: false,
       dashboard: null,
       intervalId: '',

@@ -5,35 +5,9 @@
  * @author AndyNgKM
 */
 import React, { Component } from 'react';
-import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row } from 'antd';
+import { Button, Dropdown, Card, Col, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-/**
- * Moves an item from one list to another list.
- */
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
-};
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 const grid = 8;
 
@@ -64,7 +38,8 @@ const menu = (
   <Menu onClick={handleMenuClick}>
     <Menu.Item key="1">Edit Board</Menu.Item>
     <Menu.Item key="2">Delete Board</Menu.Item>
-    <Menu.Item key="3">3rd item</Menu.Item>
+    <Menu.Item key="3">Move all cards</Menu.Item>
+    <Menu.Item key="3">Delete all cards</Menu.Item>
   </Menu>
 );
 
@@ -110,7 +85,7 @@ export class BoardPanel extends Component {
     return (
       <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
         <Card title={this.props.title} extra={<Dropdown overlay={menu} trigger={['click']}>
-          <a>Actions <DownOutlined /></a>
+          <Button type="text">Actions <DownOutlined /></Button>
         </Dropdown>} style={{ width: "100%" }} headStyle={{ backgroundColor: this.props.color }} bodyStyle={{ padding: '0px' }}>
           <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
             <Button onClick={() => displayAddCard(`${droppableId}`)} style={{ width: '100%' }}>Add Card</Button>

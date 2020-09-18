@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Dashboard from './dashboard';
 
 const mapStateToProps = state => ({
-    theme: state.appReducer.theme,
+    theme: state.app.theme,
 });
 
 // Wrap with the router and wrap the dispatch method
