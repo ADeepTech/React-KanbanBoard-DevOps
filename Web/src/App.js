@@ -51,8 +51,6 @@ class App extends React.Component {
     const shellProps = {
       pagesConfig,
       theme: this.props.theme,
-      //theme: 'light',
-      //theme: 'dark',
       defaultOpenKeys: this.props.defaultOpenKeys,
       defaultSelectedKeys: this.props.defaultSelectedKeys,
       isMobile: this.props.isMobile,

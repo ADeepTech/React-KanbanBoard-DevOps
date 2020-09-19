@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 //import { Layout, Menu, Icon, } from '@ant-design/icons';
-//import { Icon as OfficeIcon } from 'office-ui-fabric-react/lib/Icon';
 
 const Sider = Layout.Sider;
 const SubMenu = Menu.SubMenu;
@@ -56,9 +55,9 @@ export default class SiderLayout extends Component {
                 <div className="logo" style={{ textAlign: 'center' }}>
                     <Link to={`${baseUrl}/`}>
                         <img
-                            alt="Automatic Controls"
-                            title="Automatic Controls"
-                            style={{ width: '77%', padding: '10px' }}
+                            alt="ADeepTech"
+                            title="ADeepTech"
+                            style={{ width: '50%', padding: '10px' }}
                             src={imgFile}
                         />
                     </Link>
@@ -67,7 +66,7 @@ export default class SiderLayout extends Component {
                     openKeys={this.state.openKeys}
                     selectedKeys={this.props.defaultSelectedKeys}
                     onOpenChange={this.onOpenChange}
-                //inlineCollapsed={this.props.collapsed}
+                    //inlineCollapsed={this.props.collapsed}
                 >
                     <Menu.Item key="Home">
                         <Link to={`${baseUrl}/home`}>
