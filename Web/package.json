@@ -32,7 +32,7 @@
     "terser-webpack-plugin": "^4.1.0"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "set PORT=3080 && craco start",
     "build": "craco build",
     "test": "craco test"
   },
