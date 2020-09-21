@@ -5,12 +5,14 @@
  * @author AndyNgKM
 */
 import React, { Component } from 'react';
-import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row } from 'antd';
+import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row, Select } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BoardPanel } from "./panels";
 
 import './dashboard.scss';
+
+const { Option } = Select;
 
 // fake data generator
 const getToDoItems = count =>
@@ -58,43 +60,10 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'white',
-  padding: grid,
-  width: "100%"
-});
-
 const formItemLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 20 },
 };
-
-function handleMenuClick(e) {
-  console.log('click', e);
-}
-
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="1">Edit Board</Menu.Item>
-    <Menu.Item key="2">Delete Board</Menu.Item>
-    <Menu.Item key="3">3rd item</Menu.Item>
-  </Menu>
-);
 
 export default class Dashboard extends Component {
 
@@ -105,18 +74,13 @@ export default class Dashboard extends Component {
       selected: getDoingItems(3),
       selectedDone: getDoneItems(3),
       displayAddCard: false,
+      displayMoveAllCards: false,
       dashboard: null,
-      intervalId: '',
-      tagTime: '',
-      avgLightIntensity: [],
-      avgVoltage: [],
-      avgCurrent: [],
+      from: null,
+      dest: null,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
     this.setResult = this.setResult.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.displayAddCard = this.displayAddCard.bind(this);
   }
 
   componentWillMount() {
@@ -197,27 +161,77 @@ export default class Dashboard extends Component {
     }
   }
 
-  handleOk() {
+  handleOk = () => {
     this.setState({
       displayAddCard: false
     });
   }
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState({
-      displayAddCard: false
+      displayAddCard: false,
+      displayMoveAllCards: false
     });
   }
 
-  displayAddCard(id) {
+  displayAddCard = (id) => {
     this.setState({
       displayAddCard: true
+    });
+  }
+
+  displayMoveAllCards = (from) => {
+    console.log("from", from);
+    this.setState({
+      displayMoveAllCards: true,
+      from: from,
+      dest: null
+    });
+  }
+
+  handleMoveAllCards = () => {
+    const id = this.state.from;
+    const dest = this.state.dest;
+    let fromDroppable = [];
+    let destDroppable = [];
+    if (id === 'droppable') {
+      fromDroppable = this.state.items;
+      this.setState({ items: [] });
+    } else if (id === 'droppable2') {
+      fromDroppable = this.state.selected;
+      this.setState({ selected: [] });
+    } else if (id === 'droppable3') {
+      fromDroppable = this.state.selectedDone;
+      this.setState({ selectedDone: [] });
+    }
+    if (dest === 'droppable') {
+      destDroppable = this.state.items.concat(fromDroppable);
+      this.setState({ items: destDroppable });
+    } else if (dest === 'droppable2') {
+      destDroppable = this.state.selected.concat(fromDroppable);
+      this.setState({ selected: destDroppable });
+    } else if (dest === 'droppable3') {
+      destDroppable = this.state.selectedDone.concat(fromDroppable);
+      this.setState({ selected: destDroppable });
+    }
+    console.log("fromDroppable", fromDroppable);
+    console.log("destDroppable", destDroppable);
+    this.setState({
+      displayMoveAllCards: false
+    });
+  }
+
+  handleMoveChange = (value) => {
+    console.log(`selected ${value}`);
+    this.setState({
+      dest: value
     });
   }
 
   render() {
     const isMobile = this.props.isMobile;
     const displayAddCard = this.displayAddCard;
+    const displayMoveAllCards = this.displayMoveAllCards;
     return (
       <div id="Dashboard" style={{ height: '100%', paddingTop: '16px', paddingLeft: '16px' }}>
         <section id="AC-Inner-Content" className="AC-Inner-Content">
@@ -229,6 +243,7 @@ export default class Dashboard extends Component {
                 droppableId="droppable"
                 items={this.state.items}
                 displayAddCard={displayAddCard}
+                displayMoveAllCards={displayMoveAllCards}
               />
               <BoardPanel
                 title="Doing"
@@ -236,13 +251,15 @@ export default class Dashboard extends Component {
                 droppableId="droppable2"
                 items={this.state.selected}
                 displayAddCard={displayAddCard}
+                displayMoveAllCards={displayMoveAllCards}
               />
               <BoardPanel
                 title="Done"
                 color='#73d13d'
                 droppableId="droppable3"
-                items={this.state.selected}
+                items={this.state.selectedDone}
                 displayAddCard={displayAddCard}
+                displayMoveAllCards={displayMoveAllCards}
               />
             </Row>
           </DragDropContext>
@@ -259,6 +276,22 @@ export default class Dashboard extends Component {
             </Form.Item>
             <Form.Item label="Content">
               <Input.TextArea rows={4} />
+            </Form.Item>
+          </Form>
+        </Modal>
+        <Modal
+          title="Move all Cards"
+          visible={this.state.displayMoveAllCards}
+          onOk={this.handleMoveAllCards}
+          onCancel={this.handleCancel}
+        >
+          <Form {...formItemLayout}>
+            <Form.Item label="Destination">
+              <Select onChange={this.handleMoveChange}>
+                <Option value="droppable">To Do</Option>
+                <Option value="droppable2">Doing</Option>
+                <Option value="droppable3">Done</Option>
+              </Select>
             </Form.Item>
           </Form>
         </Modal>

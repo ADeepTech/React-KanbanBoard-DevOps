@@ -34,15 +34,6 @@ function handleMenuClick(e) {
   console.log('click', e);
 }
 
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="1">Edit Board</Menu.Item>
-    <Menu.Item key="2">Delete Board</Menu.Item>
-    <Menu.Item key="3">Move all cards</Menu.Item>
-    <Menu.Item key="3">Delete all cards</Menu.Item>
-  </Menu>
-);
-
 export class BoardPanel extends Component {
 
   constructor(props) {
@@ -82,9 +73,15 @@ export class BoardPanel extends Component {
     const isMobile = this.props.isMobile;
     const droppableId = this.props.droppableId;
     const displayAddCard = this.props.displayAddCard;
+    const displayMoveAllCards = this.props.displayMoveAllCards;
     return (
       <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
-        <Card title={this.props.title} extra={<Dropdown overlay={menu} trigger={['click']}>
+        <Card title={this.props.title} extra={<Dropdown overlay={<Menu onClick={handleMenuClick}>
+          <Menu.Item key={`E${droppableId}`}>Edit Board</Menu.Item>
+          <Menu.Item key={`DB${droppableId}`}>Delete Board</Menu.Item>
+          <Menu.Item key={`M${droppableId}`} onClick={() => displayMoveAllCards(`${droppableId}`)}>Move all cards</Menu.Item>
+          <Menu.Item key={`DC${droppableId}`}>Delete all cards</Menu.Item>
+        </Menu>} trigger={['click']}>
           <Button type="text">Actions <DownOutlined /></Button>
         </Dropdown>} style={{ width: "100%" }} headStyle={{ backgroundColor: this.props.color }} bodyStyle={{ padding: '0px' }}>
           <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
