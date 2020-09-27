@@ -67,54 +67,6 @@
     }
   }
 
-  .ant-card .AC-Card-Command {
-    font-size: 16px;
-    .ms-CommandBar {
-      //padding: 0px 0px 0px 24px;
-      @include themify($themes) {
-        background-color: themed('colorCommandBarHeaderBg');
-        color: themed('colorDashboardPanelText');
-      }
-      .ac-CommandBarTitle {
-        display: flex;
-        height: 100%;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-      }
-      .ms-CommandBar-primaryCommand {
-        .ms-Button.ms-Button--commandBar {
-          cursor: auto;
-          .ms-Button-label {
-            font-size: 16px;
-            //font-weight: 700;
-          }
-        }
-        .ms-Button.ms-Button--commandBar:hover {
-          background-color: inherit;
-          color: inherit;
-        }
-      }
-      .ms-Button.ms-Button--commandBar {
-        @include themify($themes) {
-          background-color: themed('colorCommandBarHeaderBg');
-          color: themed('colorDashboardPanelText');
-        }
-        .ms-Button-icon, .ms-Button-textContainer, .ms-Button-menuIcon {
-          background-color: inherit;
-          color: inherit;
-        }
-        .ms-Button-menuIcon:hover {
-          background-color: transparent;
-          @include themify($themes) {
-              color: themed('colorDashboardPanelText');
-          }
-        }
-      }
-    }
-  }
-
   .ant-layout-footer {
     @include themify($themes) {
         color: themed('colorContentText');

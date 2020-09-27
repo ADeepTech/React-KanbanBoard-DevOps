@@ -4,44 +4,34 @@
  * https://github.com/ADeepTech/React-KanbanBoard-DevOps/blob/master/LICENSE
  * @author AndyNgKM
 */
-import React, { Component } from 'react';
-import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Col, Row } from 'antd';
+import { getProjectList } from "../../../store/actions/projectActions";
 
-export default class Home extends Component {
+export default function Home() {
+  const dispatch = useDispatch();
+  const projectList = useSelector(state => state.project.projectList);
+  const [sortBy, setSortBy] = useState("DESC");
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayAddCard: false,
-      dashboard: null,
-      intervalId: '',
-      tagTime: '',
-      avgLightIntensity: [],
-      avgVoltage: [],
-      avgCurrent: [],
-    };
-  }
+  useEffect(() => {
+    console.log("useEffect");
+    dispatch(getProjectList());
+  }, [dispatch]);
 
-  componentWillMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
-  componentDidMount() {
-  }
-
-  componentDidUpdate(prevProps) {
-  }
-
-  render() {
-    const isMobile = this.props.isMobile;
-    return (
-      <div id="Dashboard" style={{ height: '100%', paddingTop: '16px', paddingLeft: '16px' }}>
-        <section id="AC-Inner-Content" className="AC-Inner-Content">
-        </section>
-      </div>
-    );
-  }
+  return (
+    <div id="home" style={{ height: '100%', padding: '16px' }}>
+      <Row gutter={[16, 16]}>
+        {
+          (projectList.length > 0) && projectList.map(el => (
+            <Col key={el} xs={24} sm={24} md={24} lg={4} xl={4}>
+              <Card title={`${el}`}>
+                {el}
+              </Card>
+            </Col>
+          ))
+        }
+      </Row>
+    </div>
+  );
 }

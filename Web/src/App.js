@@ -7,7 +7,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Shell from './components/shell/shell';
-import HomeContainer from './components/pages/Home/home.container';
+import Home from './components/pages/Home/home';
 import DashboardContainer from './components/pages/Dashboard/dashboard.container';
 import './App.less';
 
@@ -24,7 +24,7 @@ const pagesConfig = [
   {
     to: '/home',
     exact: true,
-    Component: HomeContainer,
+    Component: Home,
     Roles: rolesAll
   },
   {

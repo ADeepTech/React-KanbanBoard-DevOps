@@ -8,6 +8,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { filterActions, ignoreActions } from 'redux-ignore'; // pull in the filterActions function
 import appReducer from './reducers/appReducer';
+import projectReducer from './reducers/projectReducer';
 import * as actions from './actions/actionTypes';
 
 export default function configureStore(initialState) {
@@ -23,7 +24,8 @@ export default function configureStore(initialState) {
     }*/
     return createStore(
         combineReducers({
-            app: filterActions(appReducer, [])
+            app: filterActions(appReducer, []),
+            project: projectReducer
         }), initialState, compose(
             applyMiddleware(...middewares)
         )

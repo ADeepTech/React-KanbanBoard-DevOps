@@ -6,7 +6,7 @@
 */
 import React, { Component } from 'react';
 import { Button, Dropdown, Card, Form, Input, Menu, Modal, Col, Row, Select } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { FieldTimeOutlined, TeamOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BoardPanel } from "./panels";
 
@@ -234,50 +234,64 @@ export default class Dashboard extends Component {
     const displayMoveAllCards = this.displayMoveAllCards;
     return (
       <div id="Dashboard" style={{ height: '100%', paddingTop: '16px', paddingLeft: '16px' }}>
-        <section id="AC-Inner-Content" className="AC-Inner-Content">
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Row>
-              <BoardPanel
-                title="To Do"
-                color='#40a9ff'
-                droppableId="droppable"
-                items={this.state.items}
-                displayAddCard={displayAddCard}
-                displayMoveAllCards={displayMoveAllCards}
-              />
-              <BoardPanel
-                title="Doing"
-                color='#9254de'
-                droppableId="droppable2"
-                items={this.state.selected}
-                displayAddCard={displayAddCard}
-                displayMoveAllCards={displayMoveAllCards}
-              />
-              <BoardPanel
-                title="Done"
-                color='#73d13d'
-                droppableId="droppable3"
-                items={this.state.selectedDone}
-                displayAddCard={displayAddCard}
-                displayMoveAllCards={displayMoveAllCards}
-              />
-            </Row>
-          </DragDropContext>
-        </section>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Row>
+            <BoardPanel
+              title="To Do"
+              color='#40a9ff'
+              droppableId="droppable"
+              items={this.state.items}
+              displayAddCard={displayAddCard}
+              displayMoveAllCards={displayMoveAllCards}
+            />
+            <BoardPanel
+              title="Doing"
+              color='#9254de'
+              droppableId="droppable2"
+              items={this.state.selected}
+              displayAddCard={displayAddCard}
+              displayMoveAllCards={displayMoveAllCards}
+            />
+            <BoardPanel
+              title="Done"
+              color='#73d13d'
+              droppableId="droppable3"
+              items={this.state.selectedDone}
+              displayAddCard={displayAddCard}
+              displayMoveAllCards={displayMoveAllCards}
+            />
+          </Row>
+        </DragDropContext>
         <Modal
-          title="Add Card"
+          title="Add new card"
           visible={this.state.displayAddCard}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          width={720}
         >
-          <Form {...formItemLayout}>
-            <Form.Item label="Title">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Content">
-              <Input.TextArea rows={4} />
-            </Form.Item>
-          </Form>
+          <Row>
+            <Col xs={24} sm={24} md={24} lg={18} xl={18} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
+              <Form layout='vertical'>
+                <Form.Item label="Title">
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Description">
+                  <Input.TextArea rows={2} />
+                </Form.Item>
+              </Form>
+            </Col>
+            <Col className='kb-addtocard' xs={24} sm={24} md={24} lg={6} xl={6} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
+              <Row>
+                Add to card
+              </Row>
+              <Row>
+                <Button icon={<TeamOutlined />}>Assign To</Button>
+              </Row>
+              <Row>
+                <Button icon={<FieldTimeOutlined />}>Due Date</Button>
+              </Row>
+            </Col>
+          </Row>
         </Modal>
         <Modal
           title="Move all Cards"

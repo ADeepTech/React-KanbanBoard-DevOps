@@ -27,68 +27,10 @@
   background-color: white;
 }
 
-.ms-Dropdown-header {
-  height: auto;
-  line-height: normal;
-}
-.AC-CalloutSettings {
-  width: 320px;
-  height: calc(100vh - 50px);
-  top: 50px !important;
-  left: auto !important;
-  right: 0px !important;
-  .ms-Callout-main {
-    height: 100%;
-    .AC-CalloutSettings-header {
-      .AC-CalloutSettings-headerTitle {
-        margin: 16px;
-      }
-    }
-    .AC-CalloutSettings-inner {
-      padding: 16px;
-    }
-  }
-}
-.CalloutSettings {
-  right: 0px !important;
-  .ms-Callout-main {
-    height: 100%;
-    .ms-Dropdown-header {
-      padding: 0px 16px;
-    }
-  }
-}
-.CalloutSignOut {
-  right: 0px !important;
-  margin-right: 0px;
-  .ms-Callout-main {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.16);
-    .ms-Dropdown-header {
-      .ms-Persona-details {
-        line-height: normal;
-      }
-    }
-    .ms-Button.ms-Button--default {
-      width: 100%;
-      background-color: rgba(0,0,0,.04);
-      border: none
-    }
-    .ms-Button.ms-Button--action.ms-Button--command.ms-Dropdown-item {
-      background-color: rgba(0,0,0,.04);
-      text-align: center;
-    }
-    .ms-Button.ms-Button--action.ms-Button--command.ms-Dropdown-item:hover {
-      background-color: rgba(0,0,0,.08);
-    }
-    /*
-    .ms-Button.ms-Button--default:parent {
-      margin: 0px;
-    }*/
-    .ms-IconExample {
-      font-size: 20px;
-      height: 20px;
-      width: 20px;
-      margin: 0 10px;
+.ant-popover {
+  .ant-popover-content {
+    .ant-popover-arrow {
+      display: none;
     }
   }
 }

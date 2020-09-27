@@ -1,0 +1,10 @@
+{
+  "copyright": "Copyright (c) Automatic Controls and Instrumentation Pte Ltd. All rights reserved.",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "src/*": ["src/*"],
+      "lib/*": ["lib/*"]
+    }
+  }
+}

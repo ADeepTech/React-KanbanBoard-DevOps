@@ -6,7 +6,7 @@
 */
 import React, { Component } from 'react';
 import { Button, Dropdown, Card, Col, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 const grid = 8;
@@ -34,91 +34,58 @@ function handleMenuClick(e) {
   console.log('click', e);
 }
 
-export class BoardPanel extends Component {
+export const BoardPanel = (props) => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayAddCard: false,
-    };
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
+  const isMobile = props.isMobile;
+  const droppableId = props.droppableId;
+  const displayAddCard = props.displayAddCard;
+  const displayMoveAllCards = props.displayMoveAllCards;
 
-  componentWillMount() {
-  }
-
-  componentDidUpdate(prevProps) {
-  }
-
-  handleOk() {
-    this.setState({
-      displayAddCard: false
-    });
-  }
-
-  handleCancel() {
-    this.setState({
-      displayAddCard: false
-    });
-  }
-
-  displayAddCard(id) {
-    this.setState({
-      displayAddCard: true
-    });
-  }
-
-  render() {
-    const isMobile = this.props.isMobile;
-    const droppableId = this.props.droppableId;
-    const displayAddCard = this.props.displayAddCard;
-    const displayMoveAllCards = this.props.displayMoveAllCards;
-    return (
-      <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
-        <Card title={this.props.title} extra={<Dropdown overlay={<Menu onClick={handleMenuClick}>
-          <Menu.Item key={`E${droppableId}`}>Edit Board</Menu.Item>
-          <Menu.Item key={`DB${droppableId}`}>Delete Board</Menu.Item>
-          <Menu.Item key={`M${droppableId}`} onClick={() => displayMoveAllCards(`${droppableId}`)}>Move all cards</Menu.Item>
-          <Menu.Item key={`DC${droppableId}`}>Delete all cards</Menu.Item>
-        </Menu>} trigger={['click']}>
-          <Button type="text">Actions <DownOutlined /></Button>
-        </Dropdown>} style={{ width: "100%" }} headStyle={{ backgroundColor: this.props.color }} bodyStyle={{ padding: '0px' }}>
-          <div style={{ width: '100%', padding: grid, paddingBottom: '0px' }}>
-            <Button onClick={() => displayAddCard(`${droppableId}`)} style={{ width: '100%' }}>Add Card</Button>
-          </div>
-          <Droppable droppableId={droppableId}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}>
-                {this.props.items.map((item, index) => (
-                  <Draggable
-                    key={item.id}
-                    draggableId={item.id}
-                    index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}>
-                        <Card title={item.title}>
-                          {item.content}
-                        </Card>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </Card>
-      </Col>
-    );
-  }
+  return (
+    <Col xs={24} sm={24} md={24} lg={4} xl={4} style={{ width: "100%", paddingRight: (isMobile === true) ? '0px' : '16px' }}>
+      <Card size="small" title={<span style={{ fontWeight: 600 }}>{props.title}</span>} extra={<Dropdown overlay={<Menu onClick={handleMenuClick}>
+        <Menu.Item key={`E${droppableId}`}>Edit Board</Menu.Item>
+        <Menu.Item key={`DB${droppableId}`}>Delete Board</Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key={`M${droppableId}`} onClick={() => displayMoveAllCards(`${droppableId}`)}>Move all cards</Menu.Item>
+        <Menu.Item key={`DC${droppableId}`}>Delete all cards</Menu.Item>
+      </Menu>} trigger={['click']}>
+        <Button type="text"><EllipsisOutlined /></Button>
+      </Dropdown>} style={{ width: "100%" }} headStyle={{ backgroundColor: props.color }} bodyStyle={{ padding: '0px' }}>
+        <Droppable droppableId={droppableId}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}>
+              {props.items.map((item, index) => (
+                <Draggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}>
+                      <Card title={item.title}>
+                        {item.content}
+                      </Card>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <div style={{ width: '100%', padding: grid, paddingTop: '0px' }}>
+          <Button onClick={() => displayAddCard(`${droppableId}`)} icon={<PlusOutlined />} style={{ width: '100%' }}>Add new card</Button>
+        </div>
+      </Card>
+    </Col>
+  );
 }

@@ -65,7 +65,7 @@ export default class Shell extends React.Component {
                     <Content id="ant-layout-content" style={{ margin: '0px', marginTop: '0px', minHeight: 'auto' }}>
                         <Component route={match} history={history} isMobile={isMobile} onCollapse={this.onCollapse} collapsed={this.state.collapsed} />
                     </Content>
-                    <Footer style={{ textAlign: 'center', padding: '15px' }}>ADeepTech - AndyNgKM ©2020 v1.0.0</Footer>
+                    <Footer style={{ width: 'calc(100% - 228px)', bottom: '0', textAlign: 'center', padding: '15px' }}>ADeepTech - AndyNgKM ©2020 v1.0.0</Footer>
                 </Layout>
             </Layout>
         );
